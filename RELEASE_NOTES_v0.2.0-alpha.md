@@ -1,6 +1,6 @@
 # Korean Display Hook v0.2.0-alpha
 
-First separate runtime-hook release.
+Updated alpha runtime-hook release.
 
 This package is distributed as `KoreanDisplayHook`, a different mod from the older direct-patch `KoreanModTranslations` package.
 
@@ -15,7 +15,10 @@ This package is distributed as `KoreanDisplayHook`, a different mod from the old
 - Adds display dictionaries, template dictionaries, context dictionaries, class-constant replacements, and a small v4 exact database.
 - Adds optional skin description overlays only when matching source skins exist in the user's installation.
 - Keeps normal play logging disabled by default.
-- Supports debug logging with `install_korean_display_hook.bat -DebugMode`.
+- Routes renderer, high-level observation, token replacement, StringBuilder/invokedynamic composition, `%s`, numbers, factions, market/planet names, commodities, durations, and location prose through the same display template pipeline where safe.
+- Preserves long Korean prose at renderer level instead of clamping it to `...`, relying on the Korean auto-size layout guard to prevent overlap.
+- Keeps high-level UI mutation in bind-only/observe mode for release, so AoTD/AshLib/vanilla command keys remain English internally while renderer-visible text can be Korean.
+- Excludes debug console, JSONL collection, runtime miss extraction, and helper tools from the release ZIP.
 
 ## Install
 
@@ -29,21 +32,24 @@ Original supported mods such as AoTD, Arma Armatura, Nexerelin, MagicLib, LazyLi
 ## Package
 
 - Asset: `KoreanDisplayHook-0.2.0-alpha.zip`
-- Zip SHA-256: `186111e6f88ee3daa4ac5601ddc64ae123ecf6356afc7f977d9131f36d9ffb0e`
-- Agent SHA-256: `52ae4e9e5df2ade1eacb81008de147854f3b01ab53c58eb343d7d703a2eaf8b0`
-- Zip size: `36,105,064` bytes
+- Zip SHA-256: `f163c3e7ad25fbc6e4ff7d127b94e08ba621856ad38b074e70dd1dadab39a6a3`
+- Agent SHA-256: `8b96e990e691538cf9f258c557f2ae53b0ad88d8daefdf1abef06d2c714d4dff`
+- Zip size: `36,293,180` bytes
 
 ## Local Validation
 
 - Clean test install completed in `H:\Games\Starsector_hook_clean_test`.
 - `vmparams` used `-javaagent:..\mods\KoreanDisplayHook\jars\kmt-display-agent.jar`.
 - `korean_display_hook` was enabled and `korean_mod_translations` was disabled.
-- A 55-second launch smoke test stayed alive.
-- The checked log tail did not show fatal Java transform or verifier errors.
+- Release install uses `kmt.display.highlevel.mode=observe`, `kmt.display.highlevel.bindOnly=true`, `kmt.display.highlevel.mutate=false`, and debug/JSONL/console flags set to false.
+- AoTD activation audit reported `overall_status=ok`.
+- Renderer-first replay covered survey reward, current-market agent intel, bounty/rumor location lines, and long Aleste prose without renderer ellipsis.
+- Existing runtime-miss replay showed remaining mixed samples are mostly proper-name/title cases, while the user-reported intel/probe/survey/rumor classes translate.
+- Direct-launch smoke with `-DlaunchDirect=true` reached campaign save/resource loading and stayed alive until the smoke timeout; no KMT transform, verifier, or fatal startup errors were found.
+- ZIP audit found 120 entries and 0 debug/log-extraction/tool entries.
 
 ## Known Limits
 
 - This is still an alpha release.
-- The unattended smoke test did not enter the main menu because Starsector needs a user click.
-- Remaining untranslated or mixed runtime-composed strings may still exist.
+- Remaining untranslated proper names, titles, or isolated mod labels may still exist.
 - No online machine-translation endpoint is included.

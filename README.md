@@ -25,22 +25,17 @@ Python은 필요 없습니다. Windows PowerShell만 사용합니다.
 ## Included
 
 - 런타임 표시 번역 사전
-- 숫자/퍼센트/크레딧/키 입력/세력명/함선명 템플릿 사전
+- 숫자/퍼센트/크레딧/키 입력/세력명/행성명/상품명/기간/위치 문장 템플릿 사전
+- StringBuilder/invokedynamic 조합문과 `%s` 포맷문을 위한 전역 표시 템플릿 파이프라인
 - 안전한 클래스 상수 표시 치환 사전
 - 한국어 폰트와 `cjkMode` 설정
 - 현재 설치된 원본 skin이 있을 때만 활성화되는 선택적 skin 설명 overlay
 
 지원 원본 모드(AoTD, Arma Armatura, Nexerelin 등)는 사용자가 별도로 설치해야 합니다. 그중 일부만 설치되어 있어도 이 모드는 로딩되어야 합니다.
 
-## Debug Mode
+## Runtime Defaults
 
-일반 플레이 기본값은 로그/JSONL/콘솔/핫리로드가 꺼진 상태입니다. 문제 분석이 필요할 때만 다음처럼 설치하세요.
-
-```bat
-install_korean_display_hook.bat -DebugMode
-```
-
-로그는 `mods\KoreanDisplayHook\reports`에 용량 제한을 두고 생성됩니다.
+일반 플레이 기본값은 로그/JSONL/콘솔/핫리로드가 꺼진 상태입니다. 테스트용 로그 추출 스크립트와 디버그 콘솔은 성능 영향을 피하기 위해 배포 ZIP에 포함하지 않습니다.
 
 ## Version
 
