@@ -1,0 +1,6 @@
+KoreanDisplayHook-0.2.0-alpha.zip
+SHA256 186111e6f88ee3daa4ac5601ddc64ae123ecf6356afc7f977d9131f36d9ffb0e
+SIZE 36105064
+
+kmt-display-agent.jar
+SHA256 52ae4e9e5df2ade1eacb81008de147854f3b01ab53c58eb343d7d703a2eaf8b0
