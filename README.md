@@ -2,6 +2,8 @@
 
 Starsector 한국어 표시용 런타임 훅 모드입니다.
 
+Starsector 본편 + 대형모드 3종의 올인원 한글패치입니다. (해당 모드들이 없더라도 한글패치가 작동합니다.)
+
 이 프로젝트는 기존 `Korean Mod Translations` 직접 패치 프로젝트와 분리된 별도 프로젝트입니다. 원본 Starsector core jar, 원본 모드 jar/csv/json 파일을 수정하지 않고, `vmparams`에 Java agent 옵션을 추가해서 화면에 표시되는 텍스트를 런타임에 번역합니다.
 
 ## Download
