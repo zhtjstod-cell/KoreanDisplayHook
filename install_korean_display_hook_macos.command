@@ -33,7 +33,8 @@ if [[ ! -f "$backup" ]]; then
     cp "$MacLauncher" "$backup"
 fi
 
-kdh_block="$(cat <<'KDH_FLAGS'
+tmp_block="$(mktemp)"
+cat > "$tmp_block" <<'KDH_FLAGS'
     -javaagent:../../../mods/KoreanDisplayHook/jars/kmt-display-agent.jar \
     -Dkmt.display.modDir=KoreanDisplayHook \
     -Dkmt.display.reportDir=../../../mods/KoreanDisplayHook/reports \
@@ -111,23 +112,24 @@ kdh_block="$(cat <<'KDH_FLAGS'
     -Dkmt.display.debug.keep.files=8 \
     -Dkmt.display.debug.archive.max.mb=64 \
 KDH_FLAGS
-)"
 
 tmp_launcher="$(mktemp)"
-awk -v block="$kdh_block" '
+awk -v block_file="$tmp_block" '
     /kmt-display-agent\.jar/ { next }
     /-Dkmt\.display\./ { next }
     /\$\{EXTRAARGS\}/ && !inserted {
-        print block
+        while ((getline line < block_file) > 0) print line
+        close(block_file)
         inserted = 1
     }
     { print }
     END { if (!inserted) exit 42 }
 ' "$MacLauncher" > "$tmp_launcher" || {
-    rm -f "$tmp_launcher"
+    rm -f "$tmp_launcher" "$tmp_block"
     echo "Failed to update $MacLauncher. Could not find the \${EXTRAARGS} insertion point." >&2
     exit 1
 }
+rm -f "$tmp_block"
 mv "$tmp_launcher" "$MacLauncher"
 chmod +x "$MacLauncher"
 
